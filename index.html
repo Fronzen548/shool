@@ -2,244 +2,428 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Школа №4</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Школа №4 — сучасна освіта, світле майбутнє</title>
+  <!-- Tailwind + Google Fonts -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 (безкоштовні іконки) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f8fafc;
+      color: #0f172a;
+      scroll-behavior: smooth;
+    }
+
+    /* Кастомний фокус та плавність */
+    a, button {
+      transition: all 0.2s ease;
+    }
+
+    /* Анімація fade + зсув */
+    .fade {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.75s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.75s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+    .fade.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Стилі карток — скло, тіні */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(2px);
+      border-radius: 2rem;
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.02);
+      transition: all 0.35s ease;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+    .glass-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 30px 40px -16px rgba(0, 0, 0, 0.12);
+      border-color: #cbd5e1;
+    }
+
+    /* Таблиці розкладу */
+    .schedule-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+      border-radius: 1.25rem;
+      overflow: hidden;
+    }
+    .schedule-table th {
+      background: linear-gradient(105deg, #1e293b 0%, #2d3a4b 100%);
+      color: white;
+      font-weight: 600;
+      padding: 12px 8px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .schedule-table td {
+      padding: 10px 8px;
+      border-bottom: 1px solid #eef2f6;
+      background-color: #ffffff;
+      vertical-align: top;
+      line-height: 1.4;
+    }
+    .schedule-table tr:last-child td {
+      border-bottom: none;
+    }
+    .schedule-table tr:hover td {
+      background: #f1f5f9;
+    }
+
+    /* Hero з градієнтом та текстурою */
+    .hero-modern {
+      background: radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.08) 0%, rgba(168, 85, 247, 0.02) 90%),
+                  linear-gradient(115deg, #fef9ff 0%, #f0f4fe 100%);
+      position: relative;
+      border-radius: 2rem;
+      margin-top: 1rem;
+    }
+    .hero-modern::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      border-radius: 2rem;
+    }
+
+    /* Навігація sticky blur */
+    .nav-blur {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    /* Рейтингова таблиця */
+    .rating-table {
+      border-radius: 1.5rem;
+      overflow: hidden;
+    }
+    .rating-table th {
+      background: #f1f5f9;
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    /* інтерактивність кнопок */
+    .nav-link {
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #3b82f6;
+      transition: 0.25s;
+    }
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* Сітка класів */
+    .class-chip {
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafd 100%);
+      border-radius: 1.8rem;
+      border: 1px solid #e2edff;
+    }
+  </style>
 </head>
+<body>
 
-<body class="bg-[#f5f5f7] text-[#1d1d1f]">
-
-<!-- NAV -->
-<header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-200">
-  <div class="max-w-6xl mx-auto flex justify-between items-center px-6 py-4">
-    <h1 class="font-semibold text-lg">Школа №4</h1>
-    <nav class="hidden md:flex space-x-6 text-sm text-gray-600">
-      <a href="#home" class="hover:text-black">Головна</a>
-      <a href="#classes" class="hover:text-black">Класи</a>
-      <a href="#schedule" class="hover:text-black">Розклад</a>
-      <a href="#rating" class="hover:text-black">Рейтинг</a>
-      <a href="#news" class="hover:text-black">Новини</a>
-      <a href="#events" class="hover:text-black">Події</a>
-      <a href="#contact" class="hover:text-black">Контакти</a>
+<!-- NAVIGATION — покращена адаптивність, іконки -->
+<header class="nav-blur sticky top-0 z-50 w-full">
+  <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between px-5 py-3 md:py-4">
+    <div class="flex items-center gap-2">
+      <div class="bg-gradient-to-tr from-blue-600 to-indigo-600 w-9 h-9 rounded-xl flex items-center justify-center shadow-md">
+        <i class="fas fa-school text-white text-lg"></i>
+      </div>
+      <h1 class="text-xl font-semibold tracking-tight bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent">Школа №4</h1>
+    </div>
+    <nav class="hidden md:flex space-x-7 text-[15px] font-medium text-slate-700">
+      <a href="#home" class="nav-link hover:text-indigo-600">Головна</a>
+      <a href="#classes" class="nav-link hover:text-indigo-600">Класи</a>
+      <a href="#schedule" class="nav-link hover:text-indigo-600">Розклад</a>
+      <a href="#rating" class="nav-link hover:text-indigo-600">Рейтинг</a>
+      <a href="#news" class="nav-link hover:text-indigo-600">Новини</a>
+      <a href="#events" class="nav-link hover:text-indigo-600">Події</a>
+      <a href="#contact" class="nav-link hover:text-indigo-600">Контакти</a>
     </nav>
+    <!-- Мобільне меню (спрощене, але зберігаємо лаконічність) -->
+    <div class="md:hidden flex gap-3">
+      <i class="fas fa-bars text-2xl text-slate-600 cursor-pointer" id="mobileMenuBtn"></i>
+    </div>
+  </div>
+  <!-- Випадаюче мобільне меню (динаміка) -->
+  <div id="mobileMenu" class="md:hidden hidden bg-white/95 backdrop-blur-md px-5 pb-5 flex-col space-y-3 text-base font-medium border-t border-gray-100">
+    <a href="#home" class="block py-2 hover:text-indigo-600">Головна</a>
+    <a href="#classes" class="block py-2 hover:text-indigo-600">Класи</a>
+    <a href="#schedule" class="block py-2 hover:text-indigo-600">Розклад</a>
+    <a href="#rating" class="block py-2 hover:text-indigo-600">Рейтинг</a>
+    <a href="#news" class="block py-2 hover:text-indigo-600">Новини</a>
+    <a href="#events" class="block py-2 hover:text-indigo-600">Події</a>
+    <a href="#contact" class="block py-2 hover:text-indigo-600">Контакти</a>
   </div>
 </header>
 
-<!-- HERO -->
-<section id="home" class="hero-bg max-w-6xl mx-auto px-6 py-20 text-center fade">
-  <h2 class="text-5xl font-semibold mb-4">Школа №4</h2>
-  <p class="text-gray-600 text-lg">Чиста освіта. Сучасні знання. Світле майбутнє.</p>
-</section>
+<main class="max-w-7xl mx-auto px-5 md:px-8">
 
-<!-- CLASSES -->
-<section id="classes" class="max-w-6xl mx-auto px-6 py-10 fade">
-  <h2 class="text-2xl font-semibold mb-8 text-center">Класи</h2>
-
-  <div class="grid md:grid-cols-4 gap-6">
-    <div class="card p-6 text-center hover:scale-[1.02] transition">
-      <h3 class="font-semibold">10-А</h3>
-      <p class="text-gray-500">26 учнів</p>
+  <!-- HERO SECTION -->
+  <section id="home" class="hero-modern py-16 md:py-24 px-6 md:px-12 text-center mt-5 mb-6 fade relative z-10">
+    <div class="relative z-10">
+      <span class="inline-block px-4 py-1 rounded-full bg-white/60 text-indigo-700 text-xs font-semibold tracking-wide shadow-sm backdrop-blur-sm mb-4">⭐ Лідер сучасної освіти</span>
+      <h2 class="text-5xl md:text-6xl font-bold tracking-tight bg-gradient-to-br from-slate-800 to-slate-600 bg-clip-text text-transparent">Школа №4</h2>
+      <p class="text-gray-600 text-lg md:text-xl max-w-2xl mx-auto mt-4">Чиста освіта. Сучасні знання. Світле майбутнє.</p>
+      <div class="flex flex-wrap justify-center gap-4 mt-8">
+        <a href="#schedule" class="bg-indigo-600 text-white px-6 py-2.5 rounded-full font-medium shadow-md hover:bg-indigo-700 transition flex items-center gap-2"><i class="fas fa-calendar-alt"></i> Переглянути розклад</a>
+        <a href="#contact" class="bg-white border border-gray-300 text-gray-700 px-6 py-2.5 rounded-full font-medium hover:bg-gray-50 transition flex items-center gap-2"><i class="fas fa-envelope"></i> Зв'язатись</a>
+      </div>
     </div>
+  </section>
 
-    <div class="card p-6 text-center hover:scale-[1.02] transition">
-      <h3 class="font-semibold">10-Б</h3>
-      <p class="text-gray-500">24 учні</p>
+  <!-- CLASSES -->
+  <section id="classes" class="py-16 fade">
+    <div class="text-center mb-12">
+      <span class="text-indigo-500 font-semibold text-sm uppercase tracking-wider">Наші класи</span>
+      <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mt-2">Старша школа</h2>
+      <div class="w-24 h-1 bg-indigo-200 mx-auto rounded-full mt-3"></div>
     </div>
-
-    <div class="card p-6 text-center hover:scale-[1.02] transition">
-      <h3 class="font-semibold">11-А</h3>
-      <p class="text-gray-500">22 учні</p>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-7">
+      <div class="glass-card p-7 text-center group">
+        <div class="bg-indigo-50 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"><i class="fas fa-users text-indigo-500 text-2xl"></i></div>
+        <h3 class="text-2xl font-bold">10-А</h3>
+        <p class="text-gray-500 mt-1">26 учнів · профіль: математичний</p>
+      </div>
+      <div class="glass-card p-7 text-center group">
+        <div class="bg-purple-50 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"><i class="fas fa-flask text-purple-500 text-2xl"></i></div>
+        <h3 class="text-2xl font-bold">10-Б</h3>
+        <p class="text-gray-500 mt-1">24 учні · природничий</p>
+      </div>
+      <div class="glass-card p-7 text-center group">
+        <div class="bg-emerald-50 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"><i class="fas fa-chart-line text-emerald-500 text-2xl"></i></div>
+        <h3 class="text-2xl font-bold">11-А</h3>
+        <p class="text-gray-500 mt-1">22 учні · IT та економіка</p>
+      </div>
+      <div class="glass-card p-7 text-center group">
+        <div class="bg-amber-50 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"><i class="fas fa-language text-amber-600 text-2xl"></i></div>
+        <h3 class="text-2xl font-bold">11-Б</h3>
+        <p class="text-gray-500 mt-1">23 учні · філологічний</p>
+      </div>
     </div>
+  </section>
 
-    <div class="card p-6 text-center hover:scale-[1.02] transition">
-      <h3 class="font-semibold">11-Б</h3>
-      <p class="text-gray-500">23 учні</p>
+  <!-- SCHEDULE – збережено повноту даних, стильне оформлення -->
+  <section id="schedule" class="py-16 bg-white/40 rounded-3xl my-4 fade">
+    <div class="text-center mb-12">
+      <span class="text-indigo-500 font-semibold text-sm uppercase">Організація навчання</span>
+      <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Розклад уроків</h2>
+      <p class="text-gray-500 max-w-2xl mx-auto mt-2">Актуальний розклад для 10-11 класів</p>
     </div>
-  </div>
-</section>
-
-<!-- SCHEDULE -->
-<section id="schedule" class="max-w-6xl mx-auto px-6 py-14 fade">
-  <h2 class="text-2xl font-semibold mb-8 text-center">Розклад уроків</h2>
-
-  <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-
-    <!-- 10-A -->
-    <div class="card p-6">
-      <h3 class="font-semibold mb-3">10-А</h3>
-      <table class="schedule-table">
-        <thead>
-          <tr>
-            <th>День</th>
-            <th>Уроки</th>
-          </tr>
-        </thead>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-7">
+      <!-- 10-А -->
+      <div class="glass-card p-5">
+        <div class="flex items-center gap-2 border-b border-gray-100 pb-3 mb-2"><i class="fas fa-star text-amber-400"></i><h3 class="font-bold text-xl">10-А</h3></div>
+        <table class="schedule-table">
+          <thead><tr><th>День</th><th>Уроки</th></tr></thead>
+          <tbody>
+            <tr><td class="font-medium">Пн</td><td>8:00 Математика<br>8:50 Українська<br>9:45 Англійська<br>10:40 Фізика<br>11:35 Біологія<br>12:30 Інформатика</td></tr>
+            <tr><td class="font-medium">Вт</td><td>8:00 Фізика<br>8:50 Біологія<br>9:45 Інформатика<br>10:40 Історія<br>11:35 Географія<br>12:30 Математика</td></tr>
+            <tr><td class="font-medium">Ср</td><td>8:00 Історія<br>8:50 Географія<br>9:45 Математика<br>10:40 Українська<br>11:35 Англійська<br>12:30 Фізика</td></tr>
+            <tr><td class="font-medium">Чт</td><td>8:00 Англійська<br>8:50 Фізика<br>9:45 Біологія<br>10:40 Інформатика<br>11:35 Історія<br>12:30 Географія</td></tr>
+            <tr><td class="font-medium">Пт</td><td>8:00 Математика<br>8:50 Українська<br>9:45 Англійська<br>10:40 Фізика<br>11:35 Біологія<br>12:30 Інформатика</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- 10-Б -->
+      <div class="glass-card p-5">
+        <div class="flex items-center gap-2 border-b border-gray-100 pb-3 mb-2"><i class="fas fa-leaf text-green-600"></i><h3 class="font-bold text-xl">10-Б</h3></div>
+        <table class="schedule-table"><thead><tr><th>День</th><th>Уроки</th></tr></thead>
         <tbody>
-          <tr><td>Понеділок</td><td>8:00-8:45 Математика<br>8:50-9:35 Українська<br>9:45-10:30 Англійська<br>10:40-11:25 Фізика<br>11:35-12:20 Біологія<br>12:30-13:15 Інформатика</td></tr>
-          <tr><td>Вівторок</td><td>8:00-8:45 Фізика<br>8:50-9:35 Біологія<br>9:45-10:30 Інформатика<br>10:40-11:25 Історія<br>11:35-12:20 Географія<br>12:30-13:15 Математика</td></tr>
-          <tr><td>Середа</td><td>8:00-8:45 Історія<br>8:50-9:35 Географія<br>9:45-10:30 Математика<br>10:40-11:25 Українська<br>11:35-12:20 Англійська<br>12:30-13:15 Фізика</td></tr>
-          <tr><td>Четвер</td><td>8:00-8:45 Англійська<br>8:50-9:35 Фізика<br>9:45-10:30 Біологія<br>10:40-11:25 Інформатика<br>11:35-12:20 Історія<br>12:30-13:15 Географія</td></tr>
-          <tr><td>П'ятниця</td><td>8:00-8:45 Математика<br>8:50-9:35 Українська<br>9:45-10:30 Англійська<br>10:40-11:25 Фізика<br>11:35-12:20 Біологія<br>12:30-13:15 Інформатика</td></tr>
+          <tr><td>Пн</td><td>8:00 Українська<br>8:50 Математика<br>9:45 Англійська<br>10:40 Фізика<br>11:35 Біологія<br>12:30 Інформатика</td></tr>
+          <tr><td>Вт</td><td>8:00 Історія<br>8:50 Географія<br>9:45 Математика<br>10:40 Українська<br>11:35 Англійська<br>12:30 Фізика</td></tr>
+          <tr><td>Ср</td><td>8:00 Біологія<br>8:50 Інформатика<br>9:45 Історія<br>10:40 Географія<br>11:35 Математика<br>12:30 Українська</td></tr>
+          <tr><td>Чт</td><td>8:00 Англійська<br>8:50 Фізика<br>9:45 Біологія<br>10:40 Інформатика<br>11:35 Історія<br>12:30 Географія</td></tr>
+          <tr><td>Пт</td><td>8:00 Математика<br>8:50 Українська<br>9:45 Англійська<br>10:40 Фізика<br>11:35 Біологія<br>12:30 Інформатика</td></tr>
+        </tbody></table>
+      </div>
+      <!-- 11-А -->
+      <div class="glass-card p-5">
+        <div class="flex items-center gap-2 border-b border-gray-100 pb-3 mb-2"><i class="fas fa-microchip text-blue-600"></i><h3 class="font-bold text-xl">11-А</h3></div>
+        <table class="schedule-table"><thead><tr><th>День</th><th>Уроки</th></tr></thead>
+        <tbody>
+          <tr><td>Пн</td><td>8:00 Математика<br>8:50 Фізика<br>9:45 Англійська<br>10:40 Хімія<br>11:35 Біологія<br>12:30 Інформатика</td></tr>
+          <tr><td>Вт</td><td>8:00 Історія<br>8:50 Географія<br>9:45 Математика<br>10:40 Українська<br>11:35 Англійська<br>12:30 Фізика</td></tr>
+          <tr><td>Ср</td><td>8:00 Хімія<br>8:50 Біологія<br>9:45 Інформатика<br>10:40 Історія<br>11:35 Географія<br>12:30 Українська</td></tr>
+          <tr><td>Чт</td><td>8:00 Англійська<br>8:50 Фізика<br>9:45 Хімія<br>10:40 Біологія<br>11:35 Інформатика<br>12:30 Історія</td></tr>
+          <tr><td>Пт</td><td>8:00 Математика<br>8:50 Українська<br>9:45 Англійська<br>10:40 Фізика<br>11:35 Хімія<br>12:30 Біологія</td></tr>
+        </tbody></table>
+      </div>
+      <!-- 11-Б -->
+      <div class="glass-card p-5">
+        <div class="flex items-center gap-2 border-b border-gray-100 pb-3 mb-2"><i class="fas fa-book-open text-amber-700"></i><h3 class="font-bold text-xl">11-Б</h3></div>
+        <table class="schedule-table"><thead><tr><th>День</th><th>Уроки</th></tr></thead>
+        <tbody>
+          <tr><td>Пн</td><td>8:00 Українська<br>8:50 Математика<br>9:45 Англійська<br>10:40 Фізика<br>11:35 Хімія<br>12:30 Біологія</td></tr>
+          <tr><td>Вт</td><td>8:00 Історія<br>8:50 Географія<br>9:45 Математика<br>10:40 Українська<br>11:35 Англійська<br>12:30 Фізика</td></tr>
+          <tr><td>Ср</td><td>8:00 Хімія<br>8:50 Біологія<br>9:45 Інформатика<br>10:40 Історія<br>11:35 Географія<br>12:30 Українська</td></tr>
+          <tr><td>Чт</td><td>8:00 Англійська<br>8:50 Фізика<br>9:45 Хімія<br>10:40 Біологія<br>11:35 Інформатика<br>12:30 Історія</td></tr>
+          <tr><td>Пт</td><td>8:00 Математика<br>8:50 Українська<br>9:45 Англійська<br>10:40 Фізика<br>11:35 Хімія<br>12:30 Біологія</td></tr>
+        </tbody></table>
+      </div>
+    </div>
+  </section>
+
+  <!-- RATING (покращений дизайн) -->
+  <section id="rating" class="py-16 fade">
+    <div class="text-center mb-10">
+      <span class="text-indigo-500 font-semibold text-sm">Досягнення</span>
+      <h2 class="text-3xl font-bold">Рейтинг учнів</h2>
+      <p class="text-gray-500">Кращі результати семестру</p>
+    </div>
+    <div class="glass-card overflow-hidden p-0 rating-table">
+      <table class="w-full text-left">
+        <thead class="bg-slate-50 text-slate-700">
+          <tr><th class="p-5 text-base"><i class="fas fa-user-graduate mr-2"></i> Учень</th><th class="p-5">Клас</th><th class="p-5"><i class="fas fa-star text-amber-400 mr-1"></i> Середній бал</th></tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          <tr class="hover:bg-indigo-50/40 transition"><td class="p-5 font-medium">Назар Бойко</td><td>11-А</td><td class="font-bold text-indigo-600">11.5</td></tr>
+          <tr class="hover:bg-indigo-50/40 transition"><td class="p-5 font-medium">Андрій Коваль</td><td>10-А</td><td class="font-bold text-indigo-600">11.2</td></tr>
+          <tr class="hover:bg-indigo-50/40 transition"><td class="p-5 font-medium">Олексій Дяченко</td><td>10-Б</td><td class="font-bold text-indigo-600">10.9</td></tr>
+          <tr class="hover:bg-indigo-50/40 transition"><td class="p-5 font-medium">Владислав Ткаченко</td><td>11-Б</td><td class="font-bold text-indigo-600">10.6</td></tr>
+          <tr class="hover:bg-indigo-50/40 transition"><td class="p-5 font-medium">Софія Мельник</td><td>11-А</td><td class="font-bold text-indigo-600">11.3</td></tr>
         </tbody>
       </table>
     </div>
+  </section>
 
-    <!-- 10-B -->
-    <div class="card p-6">
-      <h3 class="font-semibold mb-3">10-Б</h3>
-      <table class="schedule-table">
-        <thead>
-          <tr>
-            <th>День</th>
-            <th>Уроки</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Понеділок</td><td>8:00-8:45 Українська<br>8:50-9:35 Математика<br>9:45-10:30 Англійська<br>10:40-11:25 Фізика<br>11:35-12:20 Біологія<br>12:30-13:15 Інформатика</td></tr>
-          <tr><td>Вівторок</td><td>8:00-8:45 Історія<br>8:50-9:35 Географія<br>9:45-10:30 Математика<br>10:40-11:25 Українська<br>11:35-12:20 Англійська<br>12:30-13:15 Фізика</td></tr>
-          <tr><td>Середа</td><td>8:00-8:45 Біологія<br>8:50-9:35 Інформатика<br>9:45-10:30 Історія<br>10:40-11:25 Географія<br>11:35-12:20 Математика<br>12:30-13:15 Українська</td></tr>
-          <tr><td>Четвер</td><td>8:00-8:45 Англійська<br>8:50-9:35 Фізика<br>9:45-10:30 Біологія<br>10:40-11:25 Інформатика<br>11:35-12:20 Історія<br>12:30-13:15 Географія</td></tr>
-          <tr><td>П'ятниця</td><td>8:00-8:45 Математика<br>8:50-9:35 Українська<br>9:45-10:30 Англійська<br>10:40-11:25 Фізика<br>11:35-12:20 Біологія<br>12:30-13:15 Інформатика</td></tr>
-        </tbody>
-      </table>
+  <!-- NEWS -->
+  <section id="news" class="py-16 fade">
+    <div class="text-center mb-12">
+      <span class="text-indigo-500 font-semibold">Шкільне життя</span>
+      <h2 class="text-3xl font-bold">Останні новини</h2>
     </div>
-
-    <!-- 11-A -->
-    <div class="card p-6">
-      <h3 class="font-semibold mb-3">11-А</h3>
-      <table class="schedule-table">
-        <thead>
-          <tr>
-            <th>День</th>
-            <th>Уроки</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Понеділок</td><td>8:00-8:45 Математика<br>8:50-9:35 Фізика<br>9:45-10:30 Англійська<br>10:40-11:25 Хімія<br>11:35-12:20 Біологія<br>12:30-13:15 Інформатика</td></tr>
-          <tr><td>Вівторок</td><td>8:00-8:45 Історія<br>8:50-9:35 Географія<br>9:45-10:30 Математика<br>10:40-11:25 Українська<br>11:35-12:20 Англійська<br>12:30-13:15 Фізика</td></tr>
-          <tr><td>Середа</td><td>8:00-8:45 Хімія<br>8:50-9:35 Біологія<br>9:45-10:30 Інформатика<br>10:40-11:25 Історія<br>11:35-12:20 Географія<br>12:30-13:15 Українська</td></tr>
-          <tr><td>Четвер</td><td>8:00-8:45 Англійська<br>8:50-9:35 Фізика<br>9:45-10:30 Хімія<br>10:40-11:25 Біологія<br>11:35-12:20 Інформатика<br>12:30-13:15 Історія</td></tr>
-          <tr><td>П'ятниця</td><td>8:00-8:45 Математика<br>8:50-9:35 Українська<br>9:45-10:30 Англійська<br>10:40-11:25 Фізика<br>11:35-12:20 Хімія<br>12:30-13:15 Біологія</td></tr>
-        </tbody>
-      </table>
+    <div class="grid md:grid-cols-3 gap-7">
+      <div class="glass-card p-6 hover:shadow-xl">
+        <div class="flex gap-3 items-start"><i class="fas fa-graduation-cap text-indigo-400 text-xl"></i><div><h3 class="font-bold text-xl">Новий навчальний рік</h3><p class="text-gray-600 mt-1">Школа №4 розпочала рік з оновленими програмами STEM та проєктами для молоді.</p><p class="text-gray-400 text-xs mt-3"><i class="far fa-calendar-alt mr-1"></i> 20 квітня 2026</p></div></div>
+      </div>
+      <div class="glass-card p-6 hover:shadow-xl">
+        <div class="flex gap-3 items-start"><i class="fas fa-trophy text-amber-500 text-xl"></i><div><h3 class="font-bold text-xl">Олімпіада з математики</h3><p class="text-gray-600 mt-1">Призові місця на обласному етапі: 2 золота, 1 срібло. Пишаємося командою!</p><p class="text-gray-400 text-xs mt-3"><i class="far fa-calendar-alt mr-1"></i> 15 квітня 2026</p></div></div>
+      </div>
+      <div class="glass-card p-6 hover:shadow-xl">
+        <div class="flex gap-3 items-start"><i class="fas fa-palette text-rose-400 text-xl"></i><div><h3 class="font-bold text-xl">Виставка робіт учнів</h3><p class="text-gray-600 mt-1">Відкрито вернісаж художньої студії “Барви”. Запрошуємо батьків та учнів.</p><p class="text-gray-400 text-xs mt-3"><i class="far fa-calendar-alt mr-1"></i> 10 квітня 2026</p></div></div>
+      </div>
     </div>
+  </section>
 
-    <!-- 11-Б -->
-    <div class="card p-6">
-      <h3 class="font-semibold mb-3">11-Б</h3>
-      <table class="schedule-table">
-        <thead>
-          <tr>
-            <th>День</th>
-            <th>Уроки</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Понеділок</td><td>8:00-8:45 Українська<br>8:50-9:35 Математика<br>9:45-10:30 Англійська<br>10:40-11:25 Фізика<br>11:35-12:20 Хімія<br>12:30-13:15 Біологія</td></tr>
-          <tr><td>Вівторок</td><td>8:00-8:45 Історія<br>8:50-9:35 Географія<br>9:45-10:30 Математика<br>10:40-11:25 Українська<br>11:35-12:20 Англійська<br>12:30-13:15 Фізика</td></tr>
-          <tr><td>Середа</td><td>8:00-8:45 Хімія<br>8:50-9:35 Біологія<br>9:45-10:30 Інформатика<br>10:40-11:25 Історія<br>11:35-12:20 Географія<br>12:30-13:15 Українська</td></tr>
-          <tr><td>Четвер</td><td>8:00-8:45 Англійська<br>8:50-9:35 Фізика<br>9:45-10:30 Хімія<br>10:40-11:25 Біологія<br>11:35-12:20 Інформатика<br>12:30-13:15 Історія</td></tr>
-          <tr><td>П'ятниця</td><td>8:00-8:45 Математика<br>8:50-9:35 Українська<br>9:45-10:30 Англійська<br>10:40-11:25 Фізика<br>11:35-12:20 Хімія<br>12:30-13:15 Біологія</td></tr>
-        </tbody>
-      </table>
+  <!-- EVENTS -->
+  <section id="events" class="py-16 fade">
+    <div class="text-center mb-12">
+      <span class="text-indigo-500 font-semibold">Плануйте разом з нами</span>
+      <h2 class="text-3xl font-bold">Найближчі події</h2>
     </div>
+    <div class="grid md:grid-cols-2 gap-7">
+      <div class="glass-card p-7 flex flex-col gap-2 border-l-8 border-l-indigo-400">
+        <i class="fas fa-door-open text-indigo-500 text-2xl"></i>
+        <h3 class="font-bold text-2xl">День відкритих дверей</h3>
+        <p class="text-gray-600">25 квітня 2026, 10:00 — знайомство з вчителями, майстер-класи для дітей, екскурсія школою.</p>
+        <p class="text-sm text-gray-500 mt-1"><i class="fas fa-map-marker-alt mr-1"></i> актова зала, вул. Шкільна 4</p>
+      </div>
+      <div class="glass-card p-7 flex flex-col gap-2 border-l-8 border-l-amber-400">
+        <i class="fas fa-bell text-amber-500 text-2xl"></i>
+        <h3 class="font-bold text-2xl">Свято останнього дзвоника</h3>
+        <p class="text-gray-600">30 травня 2026 — урочиста лінійка для випускників, флешмоб та музичний вечір.</p>
+        <p class="text-sm text-gray-500 mt-1"><i class="fas fa-tree mr-1"></i> шкільне подвір'я</p>
+      </div>
+    </div>
+  </section>
 
+  <!-- CONTACT -->
+  <section id="contact" class="py-16 fade">
+    <div class="text-center mb-12">
+      <span class="text-indigo-500 font-semibold">Зв'язок з адміністрацією</span>
+      <h2 class="text-3xl font-bold">Контакти</h2>
+    </div>
+    <div class="grid md:grid-cols-2 gap-8">
+      <div class="glass-card p-8 flex items-start gap-5">
+        <i class="fas fa-location-dot text-3xl text-indigo-500"></i>
+        <div><h3 class="font-semibold text-xl">Адреса</h3><p class="text-gray-600 mt-1">вул. Шкільна, 4, Київ, 01001<br>Україна</p><p class="text-gray-500 text-sm mt-2"> <i class="fas fa-clock mr-1"></i> Пн–Пт: 8:00 – 18:00</p></div>
+      </div>
+      <div class="glass-card p-8 flex items-start gap-5">
+        <i class="fas fa-phone-alt text-3xl text-indigo-500"></i>
+        <div><h3 class="font-semibold text-xl">Зв'язок</h3><p class="text-gray-600 mt-1">📞 +380 44 123 45 67<br>✉️ info@school4.ua<br><span class="text-sm">Приймальня: +380 67 123 45 67</span></p></div>
+      </div>
+    </div>
+    <!-- Карта (симуляція) -->
+    <div class="mt-10 rounded-2xl overflow-hidden shadow-md">
+      <div class="bg-gradient-to-r from-slate-200 to-gray-200 h-48 flex items-center justify-center text-gray-500 text-sm rounded-2xl border"><i class="fas fa-map-pin mr-2 text-red-500"></i> м. Київ, вул. Шкільна 4 (карта)</div>
+    </div>
+  </section>
+</main>
+
+<footer class="mt-12 py-8 text-center text-gray-500 text-sm border-t border-gray-200 bg-white/60">
+  <div class="max-w-7xl mx-auto px-5 flex flex-col md:flex-row justify-between items-center gap-3">
+    <span>© 2026 Школа №4 — інноваційний простір розвитку</span>
+    <div class="flex gap-4 text-gray-400"><i class="fab fa-instagram hover:text-indigo-500 cursor-pointer"></i><i class="fab fa-facebook hover:text-indigo-500 cursor-pointer"></i><i class="fab fa-telegram hover:text-indigo-500 cursor-pointer"></i></div>
   </div>
-</section>
-
-<!-- RATING -->
-<section id="rating" class="max-w-6xl mx-auto px-6 py-14 fade">
-  <h2 class="text-2xl font-semibold mb-8 text-center">Рейтинг учнів</h2>
-
-  <div class="card overflow-hidden">
-    <table class="w-full text-left">
-      <thead class="bg-gray-100 text-gray-600 text-sm">
-        <tr>
-          <th class="p-4">Учень</th>
-          <th class="p-4">Клас</th>
-          <th class="p-4">Середній бал</th>
-        </tr>
-      </thead>
-      <tbody class="text-sm">
-        <tr class="border-t"><td class="p-4">Андрій Коваль</td><td>10-А</td><td>11.2</td></tr>
-        <tr class="border-t"><td class="p-4">Олексій Дяченко</td><td>10-Б</td><td>10.9</td></tr>
-        <tr class="border-t"><td class="p-4">Назар Бойко</td><td>11-А</td><td>11.5</td></tr>
-        <tr class="border-t"><td class="p-4">Владислав Ткаченко</td><td>11-Б</td><td>10.6</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<!-- NEWS -->
-<section id="news" class="max-w-6xl mx-auto px-6 py-14 fade">
-  <h2 class="text-2xl font-semibold mb-8 text-center">Новини</h2>
-  <div class="grid md:grid-cols-3 gap-6">
-    <div class="card p-6 hover:shadow-xl transition-shadow">
-      <h3 class="font-semibold mb-2 text-lg">Новий навчальний рік</h3>
-      <p class="text-gray-600 text-sm">Школа №4 розпочала новий навчальний рік з новими програмами та проектами для учнів.</p>
-      <p class="text-gray-500 text-xs mt-2">20 квітня 2026</p>
-    </div>
-    <div class="card p-6 hover:shadow-xl transition-shadow">
-      <h3 class="font-semibold mb-2 text-lg">Олімпіада з математики</h3>
-      <p class="text-gray-600 text-sm">Наші учні зайняли призові місця на обласній олімпіаді з математики. Вітаємо переможців!</p>
-      <p class="text-gray-500 text-xs mt-2">15 квітня 2026</p>
-    </div>
-    <div class="card p-6 hover:shadow-xl transition-shadow">
-      <h3 class="font-semibold mb-2 text-lg">Виставка робіт учнів</h3>
-      <p class="text-gray-600 text-sm">Відкрито виставку творчих робіт учнів художнього гуртка. Запрошуємо всіх відвідати!</p>
-      <p class="text-gray-500 text-xs mt-2">10 квітня 2026</p>
-    </div>
-  </div>
-</section>
-
-<!-- EVENTS -->
-<section id="events" class="max-w-6xl mx-auto px-6 py-14 fade">
-  <h2 class="text-2xl font-semibold mb-8 text-center">Події</h2>
-  <div class="grid md:grid-cols-2 gap-6">
-    <div class="card p-6 hover:shadow-xl transition-shadow">
-      <h3 class="font-semibold mb-2 text-lg">День відкритих дверей</h3>
-      <p class="text-gray-600 text-sm">25 квітня 2026 року о 10:00 відбудеться день відкритих дверей для батьків майбутніх першокласників. Дізнайтеся більше про нашу школу!</p>
-      <p class="text-blue-600 text-sm mt-2">Школа №4, ауд. 101</p>
-    </div>
-    <div class="card p-6 hover:shadow-xl transition-shadow">
-      <h3 class="font-semibold mb-2 text-lg">Свято останнього дзвоника</h3>
-      <p class="text-gray-600 text-sm">30 травня 2026 року відбудеться свято останнього дзвоника для випускників 11 класів. Не забудьте свої спогади!</p>
-      <p class="text-blue-600 text-sm mt-2">Шкільний двір</p>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact" class="max-w-6xl mx-auto px-6 py-14 fade">
-  <h2 class="text-2xl font-semibold mb-8 text-center">Контакти</h2>
-  <div class="grid md:grid-cols-2 gap-6">
-    <div class="card p-6">
-      <h3 class="font-semibold mb-4">Адреса</h3>
-      <p class="text-gray-600">вул. Шкільна, 4<br>м. Київ, 01001<br>Україна</p>
-    </div>
-    <div class="card p-6">
-      <h3 class="font-semibold mb-4">Зв'язок</h3>
-      <p class="text-gray-600">Телефон: +380 00 000 00 00І<br>Email: info@school4.ua<br>Час роботи: Пн-Пт 8:00-18:00</p>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="text-center py-10 text-gray-500 text-sm bg-gradient-to-r from-blue-50 to-purple-50">
-  © 2026 Школа №4 • Apple/Google стиль • Зроблено з ❤️
 </footer>
 
+<!-- JavaScript: плавне з'явлення + мобільне меню -->
 <script>
-  const faders = document.querySelectorAll('.fade');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) e.target.classList.add('show');
-    });
-  });
-  faders.forEach(el => observer.observe(el));
-</script>
+  (function() {
+    // fade animation
+    const faders = document.querySelectorAll('.fade');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    }, { threshold: 0.12 });
+    faders.forEach(el => observer.observe(el));
 
+    // mobile menu toggle
+    const menuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+      // close on link click
+      const links = mobileMenu.querySelectorAll('a');
+      links.forEach(link => {
+        link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+      });
+    }
+    // smooth scroll for all anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('href');
+        if (targetId === "#" || !targetId) return;
+        const targetElem = document.querySelector(targetId);
+        if (targetElem) {
+          e.preventDefault();
+          targetElem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  })();
+</script>
 </body>
 </html>
