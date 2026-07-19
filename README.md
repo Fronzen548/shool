@@ -1,1 +1,1 @@
-# sсhool
+# sсhcool
